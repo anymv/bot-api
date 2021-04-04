@@ -33,4 +33,4 @@ jobs:
           name: GD-Utils Build ${{ steps.get_version.outputs.VERSION }}
           files: |
             tgapi.tar.gz
-            bin/telegram-bot-api
+            telegram-bot-api/bin/telegram-bot-api
