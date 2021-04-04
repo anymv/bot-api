@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  Builds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - uses: actions/checkout@v2
+      - run: docker pull ghcr.io/anymv/tgapi
+      - run: docker run --name=tg --rm -dit ghcr.io/anymv/tgapi:latest bash
+      - run: docker cp tg:/telegram-bot-api/bin/ ./
+      - name: Compress Build Outputs
+        run: |
+          tar -czf tgapi.tar.gz bin
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build Location
+          path: tgapi.tar.gz
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: GD-Utils Build ${{ steps.get_version.outputs.VERSION }}
+          files: |
+            tgapi.tar.gz
+            bin/telegram-bot-api
