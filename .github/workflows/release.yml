@@ -15,7 +15,7 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - uses: actions/checkout@v2
       - run: docker pull ghcr.io/anymv/tgapi
-      - run: docker run --name=tg --rm -dit ghcr.io/anymv/tgapi:latest bash
+      - run: docker run --name=tg --rm -dit ghcr.io/anymv/tgapi:latest sh
       - run: docker cp tg:/telegram-bot-api/ ./
       - name: Compress Build Outputs
         run: |
