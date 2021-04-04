@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: GD-Utils Build ${{ steps.get_version.outputs.VERSION }}
+          name: Telegram BOT Server Build ${{ steps.get_version.outputs.VERSION }}
           files: |
             tgapi.tar.gz
             telegram-bot-api/bin/telegram-bot-api
