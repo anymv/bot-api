@@ -16,10 +16,10 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker pull ghcr.io/anymv/tgapi
       - run: docker run --name=tg --rm -dit ghcr.io/anymv/tgapi:latest bash
-      - run: docker cp tg:/telegram-bot-api/bin/ ./
+      - run: docker cp tg:/telegram-bot-api/ ./
       - name: Compress Build Outputs
         run: |
-          tar -czf tgapi.tar.gz bin
+          tar -czf tgapi.tar.gz telegram-bot-api
       - uses: actions/upload-artifact@v2
         with:
           name: Build Location
